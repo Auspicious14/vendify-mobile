@@ -40,24 +40,24 @@ export default function TabLayout() {
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="index"
         options={{
           title: "Home",
         }}
-      />
+      /> */}
       {/* <Tabs.Screen
         name="stores"
         options={{
           title: "Stores",
         }}
       /> */}
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="product"
         options={{
           title: "Products",
         }}
-      />
+      /> */}
       {/* <Tabs.Screen
         name="favorite"
         options={{
