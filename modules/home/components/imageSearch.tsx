@@ -1,6 +1,6 @@
 import React from "react";
 import { useProductState } from "../../product/context";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { fileSvc } from "@/file";
 
@@ -16,7 +16,7 @@ export const SearchByImage = () => {
     getProductsByImage({ name, uri, type }).then((res) => {
       if (res?.length > 0) {
         router.push({
-          pathname: "/products",
+          pathname: "/product",
           params: { products: JSON.stringify(res) },
         });
       }
@@ -24,7 +24,7 @@ export const SearchByImage = () => {
   };
 
   return (
-    <div className="w-full bg-white p-4 rounded-lg">
+    <View className="w-full bg-white p-4 rounded-lg">
       <Text className="text-xl font-bold text-center mb-2">
         Search Products by Image
       </Text>
@@ -47,6 +47,6 @@ export const SearchByImage = () => {
           company data or other banned files.
         </Text>
       </Dragger> */}
-    </div>
+    </View>
   );
 };

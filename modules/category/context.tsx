@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { showMessage } from "react-native-flash-message";
 import { apiReqHandler } from "../../components";
 import { ICategory } from "./model";
 
@@ -47,7 +47,7 @@ export const CategoryContextProvider: React.FC<IProps> = ({ children }) => {
       setCategories(data.data);
       return data;
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
 

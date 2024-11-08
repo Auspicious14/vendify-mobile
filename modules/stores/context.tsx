@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { showMessage } from "react-native-flash-message";
 import { apiReqHandler } from "../../components";
 import { IStore } from "./model";
 
@@ -85,7 +85,7 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       setStores(data);
       return data;
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
 
@@ -98,13 +98,13 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       });
       setLoading(false);
       if (res.res?.status !== 200) {
-        toast.error("Error");
+        showMessage({ message: "error", type: "danger" });
       }
       const data = await res.res?.data?.data;
       setStores(data);
       return data;
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
 
@@ -119,15 +119,15 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       });
       setLoading(false);
       if (res.res?.status !== 200) {
-        toast.error("Error");
+        showMessage({ message: "error", type: "danger" });
       }
       const data = await res.res?.data?.data;
-      toast.success("Store created successfully");
+      showMessage({ message: "Store created successfully", type: "success" });
       setStores([...stores, data]);
       // resetLink()
       return data;
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
 
@@ -142,9 +142,12 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       setLoading(false);
       const data = await res.res?.data.data;
       if (res.res?.status !== 200) {
-        toast.error("Error");
+        showMessage({ message: "error", type: "danger" });
       } else {
-        toast.success("Product updated successfully");
+        showMessage({
+          message: "Product updated successfully",
+          type: "success",
+        });
       }
       setStores(
         stores.map((p: IStore, i: number) => (p._id == data._id ? data : p))
@@ -152,7 +155,7 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
 
       return data;
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
 
@@ -167,12 +170,12 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       const data = await res.res?.data;
 
       if (data) {
-        toast.success(data.message);
+        showMessage({ message: data.message, type: "success" });
         setStores(stores.filter((p: any) => p?._id !== storeId));
       }
       return data;
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
 
@@ -188,7 +191,7 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       const data = await res?.res?.data;
 
       if (data) {
-        toast.success(data.message);
+        showMessage({ message: data.message, type: "success" });
       }
       setStores(
         stores.map((p: IStore, i: number) =>
@@ -197,7 +200,7 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       );
       return data;
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
 
@@ -212,10 +215,10 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       setLoading(false);
       const data = await res?.res?.data;
       if (data) {
-        toast.success(data.message);
+        showMessage({ message: data.message, type: "success" });
       }
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
 
@@ -228,10 +231,10 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
       setLoading(false);
       const data = await res?.res?.data;
       if (data) {
-        toast.success(data.message);
+        showMessage({ message: data.message, type: "success" });
       }
     } catch (error: any) {
-      toast.error(error);
+      showMessage({ message: error, type: "danger" });
     }
   };
   return (
