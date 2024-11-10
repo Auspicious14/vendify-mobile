@@ -1,4 +1,3 @@
-import { useScroll, useTransform } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import {
   View,
@@ -15,39 +14,27 @@ import { NewStores } from "./components/newStores";
 import { HomeCarousel } from "./components/carousel";
 
 export const HomeScreen = () => {
-  const { scrollYProgress } = useScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1]);
-
   const newArrivalsRef = useRef<HTMLDivElement | null>(null);
   const [sidebarTop, setSidebarTop] = useState(0);
 
-  // Calculate sidebar top offset
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (newArrivalsRef.current) {
-  //       const offsetTop =
-  //         newArrivalsRef.current.getBoundingClientRect().top + window.scrollY;
-  //       setSidebarTop(offsetTop);
-  //     }
-  //   };
-
-  //   // Set initial position
-  //   handleResize();
-  // }, []);
-
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ alignItems: "center", paddingVertical: 16 }}>
-        {/* Carousel Banner */}
+    <>
+      <View className="relative flex-1">
         <HomeCarousel />
-
-        {/* Main Content */}
-
-        {/* Search by Image and Category Sidebar */}
+        <View className="flex justify-center items-center text-center flex-col p-4 gap-4 absolute top-2">
+          <Text className="text-3xl text-offWhite text-center">
+            Discover thousands of products from multiple vendors
+          </Text>
+          <Text className="text-offWhite text-center">
+            Explore a vast collection of products across various categories from
+            trusted sellers. Shop with confidence and find exactly what you
+            need, all in one place.
+          </Text>
+        </View>
+      </View>
+      <View>
         <SearchByImage />
-        {/* <CategorySidebar /> */}
 
-        {/* Product Sections */}
         <View ref={newArrivalsRef as any}>
           <Text
             style={{
@@ -96,6 +83,6 @@ export const HomeScreen = () => {
           <NewStores />
         </View>
       </View>
-    </View>
+    </>
   );
 };
