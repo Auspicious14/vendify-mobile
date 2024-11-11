@@ -27,7 +27,7 @@ export const HomeCarousel = () => {
         scrollAnimationDuration={1000}
         data={items}
         renderItem={({ item, index }) => (
-          <View key={index} className="w-full  bg-black opacity-90">
+          <View key={index} className="w-full  bg-black opacity-70">
             <Image
               source={item.image}
               width={screenWidth}

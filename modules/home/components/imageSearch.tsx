@@ -65,19 +65,16 @@ export const SearchByImage = () => {
   };
 
   return (
-    <View className="w-full bg-white p-4 rounded-lg">
-      <Text className="text-xl font-bold text-center mb-2">
-        Search Products by Image
-      </Text>
-      {!image && (
-        <TouchableOpacity
-          className="flex justify-center items-center p-4 border border-spacing-4 rounded-md m-auto"
-          onPress={() => pickImage()}
-        >
-          <AntDesign name="plus" size={40} />
-          <Text>Upload Image</Text>
-        </TouchableOpacity>
-      )}
+    <View className="w-[90%] bg-gray-100 p-4 rounded-lg shadow-sm items-center self-center -mt-2">
+      <TouchableOpacity
+        className="mt-4 p-4 border-2 border-primary rounded-lg items-center w-[80%]"
+        onPress={pickImage}
+      >
+        <AntDesign name="camera" size={40} color="#2158E8" />
+        <Text className="mt-2 text-primary font-sans">
+          Search Product Image
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

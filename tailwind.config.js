@@ -22,7 +22,7 @@ module.exports = {
         primary: "#2158E8",
       },
       fontFamily: {
-        sans: ["Ubuntu, sans-serif"],
+        sans: ["SpaceMono, sans-serif"],
       },
     },
   },
