@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useProductState } from "../../product/context";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
 import { useRouter } from "expo-router";
 import { fileSvc } from "@/file";
 import * as ImagePicker from "expo-image-picker";
@@ -8,6 +8,8 @@ import * as ImageManipulator from "expo-image-manipulator";
 import * as FileSystem from "expo-file-system";
 import { IProductImage } from "@/modules/product/model";
 import { AntDesign } from "@expo/vector-icons";
+
+const screenWidth = Dimensions.get("window").width;
 
 export const SearchByImage = () => {
   const router = useRouter();
@@ -38,24 +40,21 @@ export const SearchByImage = () => {
           }
         );
         const dataUri = `data:image/jpeg;base64,${fileBase64}`;
-
         setImage({
           uri: dataUri,
           name: result.assets[0].fileName as string,
           type: result.assets[0].mimeType,
         });
+
+        await handleImageUpload(image as IProductImage);
       } catch (error) {
         console.error("Error reading file:", error);
       }
     }
   };
 
-  const handleImageUpload = async (file: any) => {
-    const { name, type }: any = file;
-
-    const uri = await fileSvc.fileToBase64(file.originFileObj as any);
-
-    getProductsByImage({ name, uri, type }).then((res) => {
+  const handleImageUpload = async (image: IProductImage) => {
+    getProductsByImage(image as IProductImage).then((res) => {
       if (res?.length > 0) {
         router.push({
           pathname: "/product",
@@ -77,18 +76,6 @@ export const SearchByImage = () => {
         >
           <AntDesign name="plus" size={40} />
           <Text>Upload Image</Text>
-        </TouchableOpacity>
-      )}
-      {image && (
-        <TouchableOpacity onPress={() => pickImage()}>
-          <Image
-            source={{
-              uri: image?.uri,
-              height: 200,
-            }}
-            alt={image?.name as string}
-            className="rounded-md m-auto mt-6"
-          />
         </TouchableOpacity>
       )}
     </View>
