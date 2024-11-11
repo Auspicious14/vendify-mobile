@@ -22,7 +22,7 @@ module.exports = {
         primary: "#2158E8",
       },
       fontFamily: {
-        sans: ["SpaceMono, sans-serif"],
+        sans: [" OpenSansRegular, OpenSansBold, sans-serif"],
       },
     },
   },

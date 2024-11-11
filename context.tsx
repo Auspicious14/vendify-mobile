@@ -1,4 +1,6 @@
 import React, { FC, ComponentProps } from "react";
+import { ProductContextProvider } from "./modules/product/context";
+import { StoreContextProvider } from "./modules/stores/context";
 
 export const combineContext = (...components: FC[]): FC<any> => {
   const CombinedComponent = components.reduce(
@@ -25,5 +27,5 @@ export const combineContext = (...components: FC[]): FC<any> => {
   return CombinedComponent;
 };
 
-const providers = [] as any;
+const providers = [ProductContextProvider, StoreContextProvider] as any;
 export const AppContextProvider = combineContext(...providers);

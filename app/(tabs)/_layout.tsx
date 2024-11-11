@@ -13,7 +13,6 @@ export default function TabLayout() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName;
-          console.log({ route, color, size });
           switch (route.name) {
             case "index":
               iconName = "home";
@@ -38,6 +37,7 @@ export default function TabLayout() {
         },
         tabBarActiveTintColor: "#2158E8",
         tabBarInactiveTintColor: "gray",
+        fontStyle: 'font-sans'
       })}
     >
       {/* <Tabs.Screen

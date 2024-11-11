@@ -3,7 +3,6 @@ import {
   View,
   Text,
   ScrollView,
-  Image,
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
@@ -13,10 +12,11 @@ import { NewArrivals } from "./components/newArrivals";
 import { TopStores } from "./components/topStores";
 import { NewStores } from "./components/newStores";
 import { HomeCarousel } from "./components/carousel";
+import { Link } from "expo-router";
+import { Image } from "expo-image";
 
 export const HomeScreen = () => {
   const newArrivalsRef = useRef<HTMLDivElement | null>(null);
-  const [sidebarTop, setSidebarTop] = useState(0);
 
   return (
     <>
@@ -35,60 +35,21 @@ export const HomeScreen = () => {
                 Explore a vast collection of products across various categories
                 from trusted sellers.
               </Text>
+              <Link
+                href={{ pathname: "/product" }}
+                className="bg-primary border-none outline-none rounded-xl p-4 text-offWhite my-4"
+              >
+                <Text className="font-sans">Shop now</Text>
+              </Link>
             </View>
           </View>
-          <View>
-            <SearchByImage />
-
-            <View ref={newArrivalsRef as any}>
-              <Text
-                style={{
-                  fontSize: 24,
-                  fontWeight: "bold",
-                  backgroundColor: "#3498db",
-                  color: "#FFF",
-                  textAlign: "center",
-                  paddingVertical: 8,
-                }}
-              >
-                New Arrivals
-              </Text>
-              <NewArrivals />
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontSize: 24,
-                  fontWeight: "bold",
-                  backgroundColor: "#3498db",
-                  color: "#FFF",
-                  textAlign: "center",
-                  paddingVertical: 8,
-                }}
-              >
-                Best-Selling Stores
-              </Text>
-              <TopStores />
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontSize: 24,
-                  fontWeight: "bold",
-                  backgroundColor: "#3498db",
-                  color: "#FFF",
-                  textAlign: "center",
-                  paddingVertical: 8,
-                }}
-              >
-                New Stores
-              </Text>
-              <NewStores />
-            </View>
-          </View>
+          <SearchByImage />
         </ScrollView>
+
+        <Text className="text-xl text-center font-sans ">New Arrivals</Text>
+        <NewArrivals />
+        <Text className="text-xl text-center font-sans ">Top Stores</Text>
+        <TopStores />
       </SafeAreaView>
     </>
   );

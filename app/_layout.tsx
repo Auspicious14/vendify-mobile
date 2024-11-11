@@ -13,13 +13,13 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { AppContextProvider } from "@/context";
 import FlashMessage from "react-native-flash-message";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    OpenSansRegular: require("../assets/fonts/open-sans/OpenSans-Regular.ttf"),
+    OpenSansBold: require("../assets/fonts/open-sans/OpenSans-Bold.ttf"),
   });
 
   useEffect(() => {

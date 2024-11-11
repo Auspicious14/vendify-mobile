@@ -8,7 +8,10 @@ interface IStoreState {
   product: IStore;
   stores: IStore[];
   newStores: IStore[];
-  getStores: (storeName?: string) => Promise<void>;
+  topStores: IStore[];
+  getStores: () => Promise<void>;
+  getTopStores: () => Promise<void>;
+  getNewStores: () => Promise<void>;
   getOneStore: (storeId: string) => Promise<any>;
   createStore: (payload: IStore) => Promise<any>;
   updateStore: (payload: IStore, storeId: string) => Promise<any>;
@@ -20,7 +23,6 @@ interface IStoreState {
   ) => Promise<void>;
   acceptStore: (storeId: string) => Promise<any>;
   setStores: (stores: IStore[]) => void;
-  setnewStores: (stores: IStore[]) => void;
 }
 
 const StoreContext = React.createContext<IStoreState>({
@@ -28,7 +30,14 @@ const StoreContext = React.createContext<IStoreState>({
   product: {} as any,
   stores: [],
   newStores: [],
+  topStores: [],
   getStores() {
+    return null as any;
+  },
+  getNewStores() {
+    return null as any;
+  },
+  getTopStores() {
     return null as any;
   },
   getOneStore(storeId) {
@@ -50,7 +59,6 @@ const StoreContext = React.createContext<IStoreState>({
     return;
   },
   setStores(stores) {},
-  setnewStores(stores) {},
 });
 
 export const useStoreState = () => {
@@ -68,21 +76,50 @@ interface IProps {
 export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
   const [product, setProduct] = useState<IStore>() as any;
   const [stores, setStores] = useState<IStore[]>([]);
-  const [newStores, setnewStores] = useState<IStore[]>([]);
+  const [newStores, setNewStores] = useState<IStore[]>([]);
+  const [topStores, setTopStores] = useState<IStore[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getStores = async (storeName?: string) => {
+  const getStores = async () => {
     setLoading(true);
     try {
       const res = await apiReqHandler({
-        endPoint: `${process.env.NEXT_PUBLIC_API_ROUTE}/stores${
-          storeName ? `?storeName=${storeName}` : ""
-        }`,
+        endPoint: `${process.env.NEXT_PUBLIC_API_ROUTE}/stores}`,
         method: "GET",
       });
       setLoading(false);
       const data = await res.res?.data?.data;
       setStores(data);
+      return data;
+    } catch (error: any) {
+      showMessage({ message: error, type: "danger" });
+    }
+  };
+  const getTopStores = async () => {
+    setLoading(true);
+    try {
+      const res = await apiReqHandler({
+        endPoint: `${process.env.NEXT_PUBLIC_API_ROUTE}/stores/top}`,
+        method: "GET",
+      });
+      setLoading(false);
+      const data = await res.res?.data?.data;
+      setTopStores(data);
+      return data;
+    } catch (error: any) {
+      showMessage({ message: error, type: "danger" });
+    }
+  };
+  const getNewStores = async () => {
+    setLoading(true);
+    try {
+      const res = await apiReqHandler({
+        endPoint: `${process.env.NEXT_PUBLIC_API_ROUTE}/stores/new}`,
+        method: "GET",
+      });
+      setLoading(false);
+      const data = await res.res?.data?.data;
+      setNewStores(data);
       return data;
     } catch (error: any) {
       showMessage({ message: error, type: "danger" });
@@ -243,8 +280,11 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
         loading,
         stores,
         newStores,
+        topStores,
         product,
         getStores,
+        getTopStores,
+        getNewStores,
         getOneStore,
         createStore,
         updateStore,
@@ -252,7 +292,6 @@ export const StoreContextProvider: React.FC<IProps> = ({ children }) => {
         acceptStore,
         rejectStore,
         setStores,
-        setnewStores,
       }}
     >
       {children}
